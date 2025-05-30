@@ -25,7 +25,7 @@ CREATE TABLE produtos (
     FOREIGN KEY (categoria) REFERENCES categorias(id)
 );
 
-CREATE TABLE timao (
+CREATE TABLE timaos (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    timao VARCHAR(255) NOT NULL
+    timaos VARCHAR(255) NOT NULL
 );
