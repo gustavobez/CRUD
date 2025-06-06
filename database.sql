@@ -27,5 +27,8 @@ CREATE TABLE produtos (
 
 CREATE TABLE timaos (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    timaos VARCHAR(255) NOT NULL
+    nome VARCHAR(255) NOT NULL DEFAULT 'Sem Nome',
+    fundacao DATE NOT NULL DEFAULT '2000-01-01',
+    jogadores VARCHAR(500) NOT NULL DEFAULT 'alisson',
+    cidade VARCHAR(255) NOT NULL DEFAULT 'São Paulo'
 );

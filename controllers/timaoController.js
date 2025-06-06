@@ -10,7 +10,7 @@ const timaoController = {
             if (err) {
                 return res.status(500).json({ error: err });
             }
-            res.redirect('/timaos');
+            res.redirect('/timao');
         });
     },
 
@@ -76,7 +76,7 @@ const timaoController = {
             if (err) {
                 return res.status(500).json({ error: err });
             }
-            res.redirect('/timaos');
+            res.redirect('/timao');
         });
     }
 };

@@ -1,4 +1,5 @@
 <h1>Lista de timaos</h1>
+<a href="/timao/new" class="btn btn-success">Novo Timao</a>
 <table class="table">
     <thead>
         <tr>
@@ -16,9 +17,9 @@
                     <%= timao.nome %>
                 </td>
                 <td>
-                    <a href="/timaos/<%= timao.id %>" class="btn btn-primary">View</a>
-                    <a href="/timaos/<%= timao.id %>/edit" class="btn btn-warning">Edit</a>
-                    <form action="/timaos/<%= timao.id %>?_method=DELETE" method="POST"
+                    <a href="/timao/<%= timao.id %>" class="btn btn-primary">View</a>
+                    <a href="/timao/<%= timao.id %>/edit" class="btn btn-warning">Edit</a>
+                    <form action="/timao/<%= timao.id %>?_method=DELETE" method="POST"
                         style="display: inline;">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
