@@ -1,83 +1,78 @@
 const Timao = require('../models/timaoModel');
 
 const timaoController = {
-    createTimao: (req, res) => {
-        const newTimao = {
-            nome: req.body.nome
-        };
-
-        Timao.create(newTimao, (err, timaoId) => {
-            if (err) {
-                return res.status(500).json({ error: err });
-            }
-            res.redirect('/timao');
-        });
+    createTimao: async (req, res) => {
+        try {
+            await Timao.create({
+                nome: req.body.nome
+            });
+            res.redirect('/timaos');
+        } catch (err) {
+            res.status(500).json({ error: err });
+        }
     },
 
-    getTimaoById: (req, res) => {
-        const timaoId = req.params.id;
-
-        Timao.findById(timaoId, (err, timao) => {
-            if (err) {
-                return res.status(500).json({ error: err });
-            }
-            if (!timao) {
-                return res.status(404).json({ message: 'Timao not found' });
-            }
+    getTimaoById: async (req, res) => {
+        try {
+            const timao = await Timao.findByPk(req.params.id);
+            if (!timao) return res.status(404).json({ message: 'Timao not found' });
             res.render('timaos/show', { timao });
-        });
+        } catch (err) {
+            res.status(500).json({ error: err });
+        }
     },
 
-    getAllTimaos: (req, res) => {
-        Timao.getAll((err, timaos) => {
-            if (err) {
-                return res.status(500).json({ error: err });
-            }
+    getAllTimaos: async (req, res) => {
+        try {
+            const timaos = await Timao.findAll();
             res.render('timaos/index', { timaos });
-        });
+        } catch (err) {
+            res.status(500).json({ error: err });
+        }
     },
 
     renderCreateForm: (req, res) => {
         res.render('timaos/create');
     },
 
-    renderEditForm: (req, res) => {
-        const timaoId = req.params.id;
-
-        Timao.findById(timaoId, (err, timao) => {
-            if (err) {
-                return res.status(500).json({ error: err });
-            }
+    renderEditForm: async (req, res) => {
+        try {
+            const timao = await Timao.findByPk(req.params.id);
             if (!timao) {
                 return res.status(404).json({ message: 'Timao not found' });
             }
             res.render('timaos/edit', { timao });
-        });
+        } catch (err) {
+            res.status(500).json({ error: err });
+        }
     },
 
-    updateTimao: (req, res) => {
-        const timaoId = req.params.id;
-        const updatedTimao = {
-            nome: req.body.nome
-        };
-
-        Timao.update(timaoId, updatedTimao, (err) => {
-            if (err) {
-                return res.status(500).json({ error: err });
+    updateTimao: async (req, res) => {
+        try {
+            const timao = await Timao.findByPk(req.params.id);
+            if (!timao) {
+                return res.status(404).json({ message: 'Timao not found' });
             }
+            await timao.update({
+                nome: req.body.nome
+            });
             res.redirect('/timaos');
-        });
+        } catch (err) {
+            res.status(500).json({ error: err });
+        }
     },
 
-    deleteTimao: (req, res) => {
-        const timaoId = req.params.id;
-
-        Timao.delete(timaoId, (err) => {
-            if (err) {
-                return res.status(500).json({ error: err });
+    deleteTimao: async (req, res) => {
+        try {
+            const timao = await Timao.findByPk(req.params.id);
+            if (!timao) {
+                return res.status(404).json({ message: 'Timao not found' });
             }
-            res.redirect('/timao');
-        });
+            await timao.destroy();
+            res.redirect('/timaos');
+        } catch (err) {
+            res.status(500).json({ error: err });
+        }
     }
 };
 
